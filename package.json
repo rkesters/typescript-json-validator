@@ -1,5 +1,5 @@
 {
-  "name": "typescript-json-validator",
+  "name": "@rkesters/typescript-json-validator",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ForbesLindesay/typescript-json-validator.git"
+    "url": "https://github.com/rkesters/typescript-json-validator.git"
   },
   "scripts": {
     "test": "jest --no-cache",
