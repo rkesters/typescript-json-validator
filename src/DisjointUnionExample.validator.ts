@@ -8,20 +8,21 @@ import {
   Entity,
   Value,
 } from './DisjointUnionExample';
+undefined;
 export const ajv = new Ajv({
   allErrors: true,
   coerceTypes: false,
   format: 'fast',
   nullable: true,
+  removeAdditional: false,
   unicode: true,
   uniqueItems: true,
   useDefaults: true,
 });
-
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export {EntityTypes, EntityOne, EntityTwo, Entity, Value};
-export const Schema = {
+export const Schema: object = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   definitions: {
     Entity: {

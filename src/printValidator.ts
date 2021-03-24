@@ -32,13 +32,17 @@ export function printTypeCollectionValidator(
     t.declareAJV(options),
     t.exportNamed(symbols),
     t.declareSchema('Schema', schema),
-    t.addSchema('Schema'),
+    t.addSchema('Schema', options),
     ...koaTypes.map(s => t.validateKoaRequestOverload(s, schema)),
     ...(koaTypes.length
       ? [t.VALIDATE_KOA_REQUEST_FALLBACK, t.VALIDATE_KOA_REQUEST_IMPLEMENTATION]
       : []),
     ...symbols.map(s => t.validateOverload(s)),
     t.VALIDATE_IMPLEMENTATION,
+    ...(options.removeAdditional
+      ? symbols.map(s => t.cleanAndValidateOverload(s))
+      : []),
+    options.removeAdditional ? t.VALIDATE_IMPLEMENTATION_CLEANER : '',
   ].join('\n');
 }
 
@@ -61,6 +65,6 @@ export function printSingleTypeValidator(
     t.declareSchema(typeName + 'Schema', schema),
     // TODO: koa implementation
     t.DECLARE_VALIDATE_TYPE,
-    t.validateFn(typeName, typeName + 'Schema'),
+    t.validateFn(typeName, typeName + 'Schema', options),
   ].join('\n');
 }

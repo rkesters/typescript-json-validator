@@ -9,12 +9,16 @@ export interface KoaContext {
   readonly query?: unknown;
   throw(status: 400, message: string): unknown;
 }
-export const ajv = new Ajv({allErrors: true, coerceTypes: false});
-
+undefined;
+export const ajv = new Ajv({
+  allErrors: true,
+  coerceTypes: false,
+  removeAdditional: false,
+});
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export {MyEnum, TypeA, TypeB, RequestA, RequestB};
-export const Schema = {
+export const Schema: object = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   definitions: {
     MyEnum: {
