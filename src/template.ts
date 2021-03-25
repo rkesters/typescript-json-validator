@@ -190,13 +190,19 @@ export const VALIDATE_KOA_REQUEST_IMPLEMENTATION = `export function validateKoaR
 export const validateOverload = (
   typeName: string,
   returnType: string = typeName,
+  quotes: boolean = true,
 ) =>
-  `export function validate(typeName: '${typeName}'): (value: unknown) => ${returnType};`;
+  `export function validate(typeName: ${
+    quotes ? `'${typeName}'` : typeName
+  }): (value: unknown) => ${returnType};`;
 export const cleanAndValidateOverload = (
   typeName: string,
   returnType: string = typeName,
+  quotes: boolean = true,
 ) =>
-  `export function cleanAndValidate(typeName: '${typeName}'): (value: unknown) => ${returnType};`;
+  `export function cleanAndValidate(typeName: ${
+    quotes ? `'${typeName}'` : typeName
+  })): (value: unknown) => ${returnType};`;
 export const VALIDATE_IMPLEMENTATION = `export function validate(typeName: string): (value: unknown) => any {
   const validator: any = ajv.getSchema(\`Schema#/definitions/\${typeName}\`);
   return (value: unknown): any => {

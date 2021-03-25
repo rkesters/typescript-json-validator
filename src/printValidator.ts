@@ -40,13 +40,13 @@ export function printTypeCollectionValidator(
     `export type AllowedTypeNames = ${symbols.map(s => `'${s}'`).join(' | ')};`,
     `export type AllowedTypes = ${symbols.map(s => `${s}`).join(' | ')};`,
     ...symbols.map(s => t.validateOverload(s)),
-    t.validateOverload('AllowedTypeNames', 'any'),
+    t.validateOverload('AllowedTypeNames', 'any', false),
     t.VALIDATE_IMPLEMENTATION,
     ...(options.removeAdditional
       ? symbols.map(s => t.cleanAndValidateOverload(s))
       : []),
     options.removeAdditional
-      ? t.cleanAndValidateOverload('AllowedTypeNames', 'any')
+      ? t.cleanAndValidateOverload('AllowedTypeNames', 'any', false)
       : '',
     options.removeAdditional ? t.VALIDATE_IMPLEMENTATION_CLEANER : '',
   ].join('\n');
