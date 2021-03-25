@@ -165,11 +165,19 @@ export function validateKoaRequest(
     };
   };
 }
+export type AllowedTypeNames =
+  | 'MyEnum'
+  | 'TypeA'
+  | 'TypeB'
+  | 'RequestA'
+  | 'RequestB';
+export type AllowedTypes = MyEnum | TypeA | TypeB | RequestA | RequestB;
 export function validate(typeName: 'MyEnum'): (value: unknown) => MyEnum;
 export function validate(typeName: 'TypeA'): (value: unknown) => TypeA;
 export function validate(typeName: 'TypeB'): (value: unknown) => TypeB;
 export function validate(typeName: 'RequestA'): (value: unknown) => RequestA;
 export function validate(typeName: 'RequestB'): (value: unknown) => RequestB;
+export function validate(typeName: 'AllowedTypeNames'): (value: unknown) => any;
 export function validate(typeName: string): (value: unknown) => any {
   const validator: any = ajv.getSchema(`Schema#/definitions/${typeName}`);
   return (value: unknown): any => {
@@ -196,10 +204,3 @@ export function validate(typeName: string): (value: unknown) => any {
     return value as any;
   };
 }
-
-export type AllowedTypeNames =
-  | 'MyEnum'
-  | 'TypeA'
-  | 'TypeB'
-  | 'RequestA'
-  | 'RequestB';

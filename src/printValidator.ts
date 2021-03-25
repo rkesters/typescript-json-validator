@@ -37,13 +37,18 @@ export function printTypeCollectionValidator(
     ...(koaTypes.length
       ? [t.VALIDATE_KOA_REQUEST_FALLBACK, t.VALIDATE_KOA_REQUEST_IMPLEMENTATION]
       : []),
+    `export type AllowedTypeNames = ${symbols.map(s => `'${s}'`).join(' | ')};`,
+    `export type AllowedTypes = ${symbols.map(s => `${s}`).join(' | ')};`,
     ...symbols.map(s => t.validateOverload(s)),
+    t.validateOverload('AllowedTypeNames', 'any'),
     t.VALIDATE_IMPLEMENTATION,
     ...(options.removeAdditional
       ? symbols.map(s => t.cleanAndValidateOverload(s))
       : []),
+    options.removeAdditional
+      ? t.cleanAndValidateOverload('AllowedTypeNames', 'any')
+      : '',
     options.removeAdditional ? t.VALIDATE_IMPLEMENTATION_CLEANER : '',
-    `export type AllowedTypeNames = ${symbols.map(s => `'${s}'`).join(' | ')};`,
   ].join('\n');
 }
 

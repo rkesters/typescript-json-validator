@@ -206,6 +206,13 @@ export const Schema: object = {
   },
 };
 ajv.addSchema(Schema, 'Schema');
+export type AllowedTypeNames =
+  | 'EntityTypes'
+  | 'EntityOne'
+  | 'EntityTwo'
+  | 'Entity'
+  | 'Value';
+export type AllowedTypes = EntityTypes | EntityOne | EntityTwo | Entity | Value;
 export function validate(
   typeName: 'EntityTypes',
 ): (value: unknown) => EntityTypes;
@@ -213,6 +220,7 @@ export function validate(typeName: 'EntityOne'): (value: unknown) => EntityOne;
 export function validate(typeName: 'EntityTwo'): (value: unknown) => EntityTwo;
 export function validate(typeName: 'Entity'): (value: unknown) => Entity;
 export function validate(typeName: 'Value'): (value: unknown) => Value;
+export function validate(typeName: 'AllowedTypeNames'): (value: unknown) => any;
 export function validate(typeName: string): (value: unknown) => any {
   const validator: any = ajv.getSchema(`Schema#/definitions/${typeName}`);
   return (value: unknown): any => {
@@ -239,10 +247,3 @@ export function validate(typeName: string): (value: unknown) => any {
     return value as any;
   };
 }
-
-export type AllowedTypeNames =
-  | 'EntityTypes'
-  | 'EntityOne'
-  | 'EntityTwo'
-  | 'Entity'
-  | 'Value';
