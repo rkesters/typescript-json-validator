@@ -202,7 +202,7 @@ export const cleanAndValidateOverload = (
 ) =>
   `export function cleanAndValidate(typeName: ${
     quotes ? `'${typeName}'` : typeName
-  })): (value: unknown) => ${returnType};`;
+  }): (value: unknown) => ${returnType};`;
 export const VALIDATE_IMPLEMENTATION = `export function validate(typeName: string): (value: unknown) => any {
   const validator: any = ajv.getSchema(\`Schema#/definitions/\${typeName}\`);
   return (value: unknown): any => {
