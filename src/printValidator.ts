@@ -43,6 +43,7 @@ export function printTypeCollectionValidator(
       ? symbols.map(s => t.cleanAndValidateOverload(s))
       : []),
     options.removeAdditional ? t.VALIDATE_IMPLEMENTATION_CLEANER : '',
+    `export type AllowedTypeNames = ${symbols.map(s => `'${s}'`).join(' | ')};`,
   ].join('\n');
 }
 

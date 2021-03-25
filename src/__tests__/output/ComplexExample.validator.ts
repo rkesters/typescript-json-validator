@@ -196,3 +196,10 @@ export function validate(typeName: string): (value: unknown) => any {
     return value as any;
   };
 }
+
+export type AllowedTypeNames =
+  | 'MyEnum'
+  | 'TypeA'
+  | 'TypeB'
+  | 'RequestA'
+  | 'RequestB';
