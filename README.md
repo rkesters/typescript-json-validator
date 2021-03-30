@@ -105,6 +105,9 @@ Options:
                         one single type.              [boolean] [default: false]
   --useNamedExport      Type name is a named export, rather than the default
                         export of the file            [boolean] [default: false]
+  --output              overrides filename                              [string]
+  --separateSchemaFile  save json schema to a separate .json file
+                                                      [boolean] [default: false]
   -*                                                               [default: []]
 
 ```

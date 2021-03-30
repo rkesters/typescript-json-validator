@@ -47,8 +47,17 @@ ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export const exportNamed = (names: string[]) => `export {${names.join(', ')}};`;
 
-export const declareSchema = (name: string, schema: TJS.Definition) =>
-  `export const ${name} = ${stringify(schema, {space: 2})};`;
+export const declareSchema = (
+  name: string,
+  schema: TJS.Definition,
+  seperateSchemaFile: boolean = false,
+  filename: string = '',
+) => {
+  if (seperateSchemaFile) {
+    return `import * as ${name} from '${filename.replace(/^.*\//, './')}';`;
+  }
+  return `export const ${name} = ${stringify(schema, {space: 2})};`;
+};
 
 export const addSchema = (name: string) => `ajv.addSchema(${name}, '${name}')`;
 
@@ -121,7 +130,7 @@ export const VALIDATE_KOA_REQUEST_IMPLEMENTATION = `export function validateKoaR
     const data = prop === 'body' ? ctx.request && (ctx.request as any).body : (ctx as any)[prop];
     if (validator) {
       const valid = validator(data);
-  
+
       if (!valid) {
         ctx.throw(
           400,
@@ -148,7 +157,7 @@ export const VALIDATE_IMPLEMENTATION = `export function validate(typeName: strin
     if (!validator) {
       throw new Error(\`No validator defined for Schema#/definitions/\${typeName}\`)
     }
-  
+
     const valid = validator(value);
 
     if (!valid) {

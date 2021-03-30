@@ -13,6 +13,9 @@ export interface Options {
   >;
   ajv: Ajv.Options;
   useNamedExport: boolean;
+  separateSchemaFile: boolean;
+  filename: string;
+  output: string;
 }
 export interface File {
   fileName: string;
@@ -146,6 +149,11 @@ export function parseArgs(args?: string[]): ParsedArgs {
       'useNamedExport',
       'Type name is a named export, rather than the default export of the file',
     )
+    .string('output')
+    .describe('output', 'overrides filename')
+    .boolean('separateSchemaFile')
+    .default('separateSchemaFile', false)
+    .describe('separateSchemaFile', 'save json schema to a separate .json file')
     .parse(args);
 
   const isCollection: boolean = parsedArgs.collection;
@@ -193,6 +201,11 @@ export function parseArgs(args?: string[]): ParsedArgs {
         useDefaults: parsedArgs.defaultProps,
       },
       useNamedExport: parsedArgs.useNamedExport,
+      separateSchemaFile: parsedArgs.separateSchemaFile,
+      output: parsedArgs.output,
+      filename: parsedArgs.output
+        ? parsedArgs.output.replace(/\.tsx?$/, '')
+        : '',
     },
   };
 }
