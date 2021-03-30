@@ -13,12 +13,21 @@ function isKoaType(typeDefinition: TJS.Definition) {
   );
 }
 const KoaProperties = ['params', 'query', 'body'];
+type printOptions = {
+  ajv: Ajv.Options;
+  separateSchemaFile: boolean;
+  filename: string;
+};
 export function printTypeCollectionValidator(
   symbols: string[],
   schema: TJS.Definition,
   relativePath: string,
   tsConfig: any,
-  options: Ajv.Options = {},
+  {ajv: options, separateSchemaFile, filename}: printOptions = {
+    ajv: {},
+    separateSchemaFile: false,
+    filename: '',
+  },
 ) {
   const koaTypes = symbols.filter(typeName => {
     return isKoaType(schema.definitions && schema.definitions[typeName]);
@@ -31,7 +40,7 @@ export function printTypeCollectionValidator(
     ...(koaTypes.length ? [t.IMPORT_INSPECT, t.DECLARE_KOA_CONTEXT] : []),
     t.declareAJV(options),
     t.exportNamed(symbols),
-    t.declareSchema('Schema', schema),
+    t.declareSchema('Schema', schema, separateSchemaFile, `${filename}.json`),
     t.addSchema('Schema', options),
     ...koaTypes.map(s => t.validateKoaRequestOverload(s, schema)),
     ...(koaTypes.length
@@ -58,7 +67,11 @@ export function printSingleTypeValidator(
   schema: TJS.Definition,
   relativePath: string,
   tsConfig: any,
-  options: Ajv.Options = {},
+  {ajv: options, separateSchemaFile, filename}: printOptions = {
+    ajv: {},
+    separateSchemaFile: false,
+    filename: '',
+  },
 ) {
   return [
     t.TSLINT_DISABLE,
@@ -68,7 +81,12 @@ export function printSingleTypeValidator(
     t.importType(typeName, relativePath, {isNamedExport}),
     t.declareAJV(options),
     t.exportNamed([typeName]),
-    t.declareSchema(typeName + 'Schema', schema),
+    t.declareSchema(
+      typeName + 'Schema',
+      schema,
+      separateSchemaFile,
+      `${filename}.json`,
+    ),
     // TODO: koa implementation
     t.DECLARE_VALIDATE_TYPE,
     t.validateFn(typeName, typeName + 'Schema', options),

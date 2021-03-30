@@ -13,7 +13,9 @@ export interface Options {
   >;
   ajv: Ajv.Options;
   useNamedExport: boolean;
-  output?: string;
+  separateSchemaFile: boolean;
+  filename: string;
+  output: string;
 }
 export interface File {
   fileName: string;
@@ -147,11 +149,11 @@ export function parseArgs(args?: string[]): ParsedArgs {
       'useNamedExport',
       'Type name is a named export, rather than the default export of the file',
     )
-    .boolean('generatePermissive')
-    .default('generatePermissive', false)
-    .describe(
-      'generatePermissive',
-      'If --noExtraProps is true then generate validators that clean the object',
+    .string('output')
+    .describe('output', 'overrides filename')
+    .boolean('separateSchemaFile')
+    .default('separateSchemaFile', false)
+    .describe('separateSchemaFile', 'save json schema to a separate .json file')
     )
     .string('output')
     .describe('output', 'overrides filename')
@@ -204,7 +206,11 @@ export function parseArgs(args?: string[]): ParsedArgs {
           parsedArgs.noExtraProps && parsedArgs.generatePermissive,
       },
       useNamedExport: parsedArgs.useNamedExport,
+      separateSchemaFile: parsedArgs.separateSchemaFile,
       output: parsedArgs.output,
+      filename: parsedArgs.output
+        ? parsedArgs.output.replace(/\.tsx?$/, '')
+        : '',
     },
   };
 }

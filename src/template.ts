@@ -69,8 +69,17 @@ export const declareAJV = (options: Ajv.Options): string => {
 
 export const exportNamed = (names: string[]) => `export {${names.join(', ')}};`;
 
-export const declareSchema = (name: string, schema: TJS.Definition) =>
-  `export const ${name}: object = ${stringify(schema, {space: 2})};`;
+export const declareSchema = (
+  name: string,
+  schema: TJS.Definition,
+  seperateSchemaFile: boolean = false,
+  filename: string = '',
+) => {
+  if (seperateSchemaFile) {
+    return `import * as ${name} from '${filename.replace(/^.*\//, './')}';`;
+  }
+  return `export const ${name} = ${stringify(schema, {space: 2})};`;
+};
 
 export const addSchema = (name: string, options: Ajv.Options) =>
   options.removeAdditional
@@ -168,7 +177,7 @@ export const VALIDATE_KOA_REQUEST_IMPLEMENTATION = `export function validateKoaR
     const data = prop === 'body' ? ctx.request && (ctx.request as any).body : (ctx as any)[prop];
     if (validator) {
       const valid = validator(data);
-  
+
       if (!valid) {
         ctx.throw(
           400,
@@ -228,7 +237,7 @@ export const VALIDATE_IMPLEMENTATION_CLEANER = `export function cleanAndValidate
     if (!validator) {
       throw new Error(\`No validator defined for Schema#/definitions/\${typeName}\`)
     }
-  
+
     const valid = validator(value);
 
     if (!valid) {

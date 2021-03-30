@@ -3,7 +3,9 @@ import fs from 'fs';
 
 describe('Basic run tests', () => {
   beforeAll(() => {
+
     run(['src/Example.ts', 'ExampleType']);
+
   });
 
   afterAll(() => {
@@ -15,6 +17,7 @@ describe('Basic run tests', () => {
     validate(test1);
   });
 
+
   test('valid', async () => {
     const {default: validate} = await import('../Example.validator');
     expect(
@@ -46,6 +49,7 @@ Object {
     expect(() => validate({})).toThrowErrorMatchingInlineSnapshot(`
 "ExampleType should have required property 'value'
 
+
 { answer: 42 }"
 `);
     expect(() =>
@@ -60,13 +64,11 @@ Object {
   });
 });
 
-describe('Basic run tests with cleaner', () => {
-  const moduleName = 'ExamplePermissiveSingle.validator';
+describe('Basic run tests with separated schema', () => {
+  const moduleName = 'Exampleseparate.validator';
   beforeAll(() => {
     run([
-      '--useNamedExport',
-      '--noExtraProps',
-      '--generatePermissive',
+      '--separateSchemaFile',
       '--output',
       `src/${moduleName}.ts`,
       'src/Example.ts',
@@ -76,18 +78,16 @@ describe('Basic run tests with cleaner', () => {
 
   afterAll(() => {
     fs.unlinkSync(`src/${moduleName}.ts`);
+    fs.unlinkSync(`src/${moduleName}.json`);
   });
   test('run', async () => {
-    const {default: validate, cleanAndValidate} = await import(
-      `../${moduleName}`
-    );
+    const {default: validate} = await import(`../${moduleName}`);
     const test1 = {value: 'ddd', answer: 1};
     validate(test1);
-    cleanAndValidate({...test1, extra: 1});
   });
 
   test('valid', async () => {
-    const {default: validate} = await import('../Example.validator');
+    const {default: validate} = await import(`../${moduleName}`);
     expect(
       validate({
         value: 'Hello World',
@@ -130,6 +130,7 @@ Object {
 `);
   });
 });
+
 describe('Basic run tests collection', () => {
   const moduleName = 'ExampleCollection.validator';
   beforeAll(() => {
@@ -188,12 +189,11 @@ Object {
   });
 });
 
-describe('Permissive run tests collection', () => {
-  const moduleName = 'ExamplePermissive.validator';
+describe('Basic run tests collection with separated schema', () => {
+  const moduleName = 'ExampleCollectionseparated.validator';
   beforeAll(() => {
     run([
-      '--noExtraProps',
-      '--generatePermissive',
+      '--separateSchemaFile',
       '--collection',
       '--output',
       `src/${moduleName}.ts`,
@@ -203,34 +203,16 @@ describe('Permissive run tests collection', () => {
 
   afterAll(() => {
     fs.unlinkSync(`src/${moduleName}.ts`);
+    fs.unlinkSync(`src/${moduleName}.json`);
   });
-
   test('run', async () => {
-    const {validate, cleanAndValidate} = await import(`../${moduleName}`);
+    const {validate} = await import(`../${moduleName}`);
     const test1 = {value: 'ddd', answer: 1};
     validate('ExampleType')(test1);
-    cleanAndValidate('ExampleType')(test1);
-  });
-
-  test('Clean Extra', async () => {
-    const {validate, cleanAndValidate} = await import(`../${moduleName}`);
-    const test1 = {value: 'ddd', answer: 1, foo: 'bar'};
-    const cleaned = cleanAndValidate('ExampleType')({...test1});
-    expect(cleaned).toMatchInlineSnapshot(`
-Object {
-  "answer": 1,
-  "value": "ddd",
-}
-`);
-    expect(() =>
-      validate('ExampleType')(test1),
-    ).toThrowErrorMatchingInlineSnapshot(
-      `"Invalid ExampleType: ExampleType should NOT have additional properties"`,
-    );
   });
 
   test('valid', async () => {
-    const {validate, cleanAndValidate} = await import(`../${moduleName}`);
+    const {validate} = await import(`../${moduleName}`);
     expect(
       validate('ExampleType')({
         value: 'Hello World',
@@ -242,13 +224,35 @@ Object {
 }
 `);
     expect(
-      cleanAndValidate('ExampleType')({
+      validate('ExampleType')({
         value: 'Hello World',
+        email: 'forbes@lindesay.co.uk',
       }),
     ).toMatchInlineSnapshot(`
 Object {
   "answer": 42,
+  "email": "forbes@lindesay.co.uk",
   "value": "Hello World",
+}
+`);
+  });
+
+  test('invalid', async () => {
+    const {validate} = await import(`../${moduleName}`);
+    expect(() =>
+      validate('ExampleType')({}),
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Invalid ExampleType: ExampleType should have required property 'value'"`,
+    );
+    expect(() =>
+      validate('ExampleType')({
+        email: 'forbeslindesay.co.uk',
+      }),
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Invalid ExampleType: ExampleType should have required property 'value'"`,
+    );
+  });
+});
 }
 `);
 
