@@ -22,7 +22,7 @@ export const ajv = new Ajv({
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export {EntityTypes, EntityOne, EntityTwo, Entity, Value};
-export const Schema: object = {
+export const Schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   definitions: {
     Entity: {

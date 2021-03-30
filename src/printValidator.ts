@@ -20,6 +20,7 @@ type printOptions = {
 };
 export function printTypeCollectionValidator(
   symbols: string[],
+  isNamedExport: boolean,
   schema: TJS.Definition,
   relativePath: string,
   tsConfig: any,
@@ -36,7 +37,7 @@ export function printTypeCollectionValidator(
     t.TSLINT_DISABLE,
     t.GENERATED_COMMENT,
     t.IMPORT_AJV(tsConfig),
-    t.importNamedTypes(symbols, relativePath),
+    t.importNamedTypes(symbols, relativePath, {isNamedExport}),
     ...(koaTypes.length ? [t.IMPORT_INSPECT, t.DECLARE_KOA_CONTEXT] : []),
     t.declareAJV(options),
     t.exportNamed(symbols),

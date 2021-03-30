@@ -18,7 +18,7 @@ export const ajv = new Ajv({
 ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 export {MyEnum, TypeA, TypeB, RequestA, RequestB};
-export const Schema: object = {
+export const Schema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   definitions: {
     MyEnum: {
@@ -177,7 +177,7 @@ export function validate(typeName: 'TypeA'): (value: unknown) => TypeA;
 export function validate(typeName: 'TypeB'): (value: unknown) => TypeB;
 export function validate(typeName: 'RequestA'): (value: unknown) => RequestA;
 export function validate(typeName: 'RequestB'): (value: unknown) => RequestB;
-export function validate(typeName: 'AllowedTypeNames'): (value: unknown) => any;
+export function validate(typeName: AllowedTypeNames): (value: unknown) => any;
 export function validate(typeName: string): (value: unknown) => any {
   const validator: any = ajv.getSchema(`Schema#/definitions/${typeName}`);
   return (value: unknown): any => {

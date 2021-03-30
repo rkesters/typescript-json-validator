@@ -63,6 +63,7 @@ export default function run(args?: string[]) {
       normalSchema = normalizeSchema(schema);
       validator = printTypeCollectionValidator(
         symbols,
+        options.useNamedExport,
         normalSchema,
         `./${basename(fileName, /\.ts$/.test(fileName) ? '.ts' : '.tsx')}`,
         tsConfig,

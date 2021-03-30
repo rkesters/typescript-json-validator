@@ -206,6 +206,7 @@ export function parseArgs(args?: string[]): ParsedArgs {
           parsedArgs.noExtraProps && parsedArgs.generatePermissive,
       },
       useNamedExport: parsedArgs.useNamedExport,
+
       separateSchemaFile: parsedArgs.separateSchemaFile,
       output: parsedArgs.output,
       filename: parsedArgs.output

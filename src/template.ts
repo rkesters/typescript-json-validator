@@ -21,19 +21,26 @@ export const DECLARE_KOA_CONTEXT = `export interface KoaContext {
   readonly query?: unknown;
   throw(status: 400, message: string): unknown;
 }`;
-
-export const importNamedTypes = (names: string[], relativePath: string) =>
-  `import {${names.join(', ')}} from '${relativePath}';`;
-export const importDefaultType = (name: string, relativePath: string) =>
-  `import ${name} from '${relativePath}';`;
 export const importType = (
   name: string,
   relativePath: string,
   {isNamedExport}: {isNamedExport: boolean},
 ) =>
   isNamedExport
-    ? importNamedTypes([name], relativePath)
+    ? importNamedTypes([name], relativePath, {isNamedExport})
     : importDefaultType(name, relativePath);
+
+export const importNamedTypes = (
+  names: string[],
+  relativePath: string,
+  {isNamedExport}: {isNamedExport: boolean},
+) => {
+  if (names.length > 1 || isNamedExport)
+    return `import {${names.join(', ')}} from '${relativePath}';`;
+  return importDefaultType(names[0], relativePath);
+};
+export const importDefaultType = (name: string, relativePath: string) =>
+  `import ${name} from '${relativePath}';`;
 
 export const declareAJV = (options: Ajv.Options): string => {
   const declareTag = (
