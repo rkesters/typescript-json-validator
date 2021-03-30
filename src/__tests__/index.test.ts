@@ -57,7 +57,7 @@ Object {
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(`
-"ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'
+"ExampleType should have required property 'value'
 
 { email: 'forbeslindesay.co.uk', answer: 42 }"
 `);
@@ -126,7 +126,7 @@ Object {
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(`
-"ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'
+"ExampleType should have required property 'value'
 
 { email: 'forbeslindesay.co.uk', answer: 42 }"
 `);
@@ -198,7 +198,7 @@ Object {
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(`
-"ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'
+"ExampleType should have required property 'value'
 
 { email: 'forbeslindesay.co.uk', answer: 42 }"
 `);
@@ -258,7 +258,7 @@ Object {
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Invalid ExampleType: ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'"`,
+      `"Invalid ExampleType: ExampleType should have required property 'value'"`,
     );
   });
 });
@@ -326,7 +326,7 @@ Object {
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Invalid ExampleType: ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'"`,
+      `"Invalid ExampleType: ExampleType should have required property 'value'"`,
     );
   });
 });
@@ -438,14 +438,14 @@ Object {
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Invalid ExampleType: ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'"`,
+      `"Invalid ExampleType: ExampleType should have required property 'value'"`,
     );
     expect(() =>
       cleanAndValidate('ExampleType')({
         email: 'forbeslindesay.co.uk',
       }),
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Invalid ExampleType: ExampleType.email should match format \\"email\\", ExampleType should have required property 'value'"`,
+      `"Invalid ExampleType: ExampleType should have required property 'value'"`,
     );
   });
 });

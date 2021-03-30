@@ -3309,6 +3309,8 @@
     "source-map" "^0.5.6"
 
 "source-map-support@^0.5.17":
+  "integrity" "sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw=="
+  "resolved" "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.19.tgz"
   "version" "0.5.19"
   dependencies:
     "buffer-from" "^1.0.0"
@@ -3684,20 +3686,17 @@
   dependencies:
     "prelude-ls" "~1.1.2"
 
-"typescript-json-schema@^0.38.3":
-  "integrity" "sha512-+13qUoBUQwOXqxUoYQWtLA9PEM7ojfv8r+hYc2ebeqqVwVM4+yI5JSlsYRBlJKKewc9q1FHqrMR6L6d9TNX9Dw=="
-  "resolved" "https://registry.npmjs.org/typescript-json-schema/-/typescript-json-schema-0.38.3.tgz"
-  "version" "0.38.3"
+"typescript-json-schema@^0.39.0":
+  "integrity" "sha512-ax2UxMMdEhWIwvTjxwJxLmbGIATkY4vxPHeS9wItTb1RfhiUU927YqVixopxURQejbW+ki2awg+eSwRnA5ZUgA=="
+  "resolved" "https://registry.npmjs.org/typescript-json-schema/-/typescript-json-schema-0.39.0.tgz"
+  "version" "0.39.0"
   dependencies:
     "glob" "~7.1.4"
     "json-stable-stringify" "^1.0.1"
     "typescript" "^3.5.1"
     "yargs" "^13.2.4"
 
-"typescript@^3.4.5", "typescript@>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev", "typescript@>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev", "typescript@>=2.7":
-  "version" "3.9.9"
-
-"typescript@^3.5.1":
+"typescript@^3.4.5", "typescript@^3.5.1", "typescript@>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev", "typescript@>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev", "typescript@>=2.7":
   "version" "3.9.9"
 
 "uglify-js@^3.1.4":
