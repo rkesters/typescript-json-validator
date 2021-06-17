@@ -6,7 +6,7 @@ export default function parse(
   tsConfig: any,
   settings: TJS.PartialArgs = {},
 ) {
-  filenames = filenames.map(f => resolve(f));
+  filenames = filenames.map(f => resolve(f).replace(/\\/g, '/'));
   const program = TJS.getProgramFromFiles(filenames, tsConfig);
 
   const generator = TJS.buildGenerator(program, {
