@@ -16,6 +16,7 @@ export interface Options {
   separateSchemaFile: boolean;
   filename: string;
   output: string;
+  isCollection: boolean;
 }
 export interface File {
   fileName: string;
@@ -208,6 +209,7 @@ export function parseArgs(args?: string[]): ParsedArgs {
       useNamedExport: parsedArgs.useNamedExport,
 
       separateSchemaFile: parsedArgs.separateSchemaFile,
+      isCollection,
       output: parsedArgs.output,
       filename: parsedArgs.output
         ? parsedArgs.output.replace(/\.tsx?$/, '')

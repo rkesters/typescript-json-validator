@@ -8,15 +8,15 @@ Define a type in `src/Example.ts`, e.g.:
 
 ```ts
 export default interface ExampleType {
-  value: string;
-  /**
-   * @TJS-format email
-   */
-  email?: string;
-  /**
-   * @default 42
-   */
-  answer: number;
+    value: string;
+    /**
+     * @TJS-format email
+     */
+    email?: string;
+    /**
+     * @default 42
+     */
+    answer: number;
 }
 ```
 
