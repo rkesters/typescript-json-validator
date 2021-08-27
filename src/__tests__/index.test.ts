@@ -3,9 +3,7 @@ import fs from 'fs';
 
 describe('Basic run tests', () => {
     beforeAll(() => {
-
         run(['src/Example.ts', 'ExampleType']);
-
     });
 
     afterAll(() => {
@@ -16,7 +14,6 @@ describe('Basic run tests', () => {
         const test1 = {value: 'ddd', answer: 1};
         validate(test1);
     });
-
 
     test('valid', async () => {
         const {default: validate} = await import('../Example.validator');
@@ -48,7 +45,6 @@ Object {
         const {default: validate} = await import('../Example.validator');
         expect(() => validate({})).toThrowErrorMatchingInlineSnapshot(`
 "ExampleType should have required property 'value'
-
 
 { answer: 42 }"
 `);
@@ -149,7 +145,6 @@ describe('Basic run tests with cleaner', () => {
 
     afterAll(() => {
         fs.unlinkSync(`src/${moduleName}.ts`);
-
     });
     test('run', async () => {
         const {default: validate, cleanAndValidate} = await import(
@@ -290,7 +285,6 @@ describe('Basic run tests collection with separate schema file', () => {
         const {validate} = await import(`../${moduleName}`);
         const test1 = {value: 'ddd', answer: 1};
         validate('ExampleType')(test1);
-
     });
 
     test('valid', async () => {

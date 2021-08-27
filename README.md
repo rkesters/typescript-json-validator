@@ -105,9 +105,6 @@ Options:
                         one single type.              [boolean] [default: false]
   --useNamedExport      Type name is a named export, rather than the default
                         export of the file            [boolean] [default: false]
-  --generatePermissive  If --noExtraProps is true then generate validators that
-                        clean the object              [boolean] [default: false]
-  --output              overrides filename                              [string]
   --output              overrides filename                              [string]
   --separateSchemaFile  save json schema to a separate .json file
                                                       [boolean] [default: false]
