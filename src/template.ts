@@ -33,10 +33,15 @@ export const importType = (name: string, output: string, source: string, symbols
 		: importDefaultType(name, getRelativeName(source, output));
 };
 
+function ensurePosix(relativePath: string): string {
+	return relativePath.replaceAll('\\', '/');
+}
+
 function getRelativeName(source: string, target: string): string {
 	const baseFilename = basename(source, /\.ts$/.test(source) ? '.ts' : '.tsx');
 	const relativePath = relative(dirname(resolve(target)), dirname(resolve(source)));
-	return isEmpty(relativePath) ? `./${baseFilename}` : `${relativePath}/${baseFilename}`;
+	const relativeName = isEmpty(relativePath) ? `./${baseFilename}` : `${relativePath}/${baseFilename}`;
+	return ensurePosix(relativeName);
 }
 
 export const importNamedTypes = (
