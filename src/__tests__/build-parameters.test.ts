@@ -36,7 +36,7 @@ const buildProject = async (project: string) => {
 	});
 	results.push(result);
 
-	result = await exec(`npx tsc --project ./tsconfig.json`, {
+	result = await exec(`pnpm exec tsc --project ./tsconfig.json`, {
 		cwd: testDir,
 	});
 	results.push(result);
@@ -45,7 +45,7 @@ const buildProject = async (project: string) => {
 };
 
 describe('Build tests', () => {
-	beforeAll(() => exec('yarn build', { cwd: process.cwd() }));
+	beforeAll(() => exec('pnpm run build', { cwd: process.cwd() }));
 
 	afterEach(() => Promise.all([rimraf(path.join(testDir, 'lib')), exec('rm tsconfig.json', { cwd: testDir }), exec('rm src/Example.validator.ts', { cwd: testDir })]));
 

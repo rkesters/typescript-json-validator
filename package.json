@@ -2,6 +2,12 @@
 	"name": "@rkesters/typescript-json-validator",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
+	"packageManager": "pnpm@7.1.7",
+	"engineStrict": true,
+	"engines": {
+		"npm": "don't use npm, use pnpm",
+		"pnpm": ">=7.1.7"
+	},
 	"bin": {
 		"typescript-json-validator": "./lib/cli.js"
 	},
@@ -14,20 +20,20 @@
 	},
 	"scripts": {
 		"test": "jest --no-cache",
-		"test:coverage": "yarn test --coverage",
-		"test:watch": "yarn test --watch",
+		"test:coverage": "pnpm test --coverage",
+		"test:watch": "pnpm test --watch",
 		"posttest": "tsc --noEmit",
-		"clean": "rimraf lib && rimraf src/Example.validator.ts && npx tsc --build --clean",
-		"prebuild": "yarn clean",
-		"build": "  npx tsc",
-		"build:watch": "yarn build -w",
+		"clean": "rimraf lib && rimraf src/Example.validator.ts && pnpm exec tsc --build --clean",
+		"prebuild": "pnpm clean",
+		"build": "pnpm exec tsc",
+		"build:watch": "pnpm build -w",
 		"postbuild": "node lib/usage && node lib/cli src/Example.ts ExampleType && node lib/cli src/DisjointUnionExample.ts --collection && rimraf lib/__tests__ && rimraf src/Example.validator.ts",
-		"precommit": "pretty-quick --staged",
-		"prepush": "yarn prettier:diff && yarn test",
+		"precommit": "pnpm prettier && git add .",
+		"prepush": "pnpm prettier:diff && pnpm test",
 		"prettier": "prettier --ignore-path .gitignore --write './**/*.{js,jsx,ts,tsx}'",
 		"prettier:diff": "prettier --ignore-path .gitignore --list-different './**/*.{js,jsx,ts,tsx}'",
-		"ci:test": "yarn prettier:diff && yarn test",
-		"prepublish": "yarn build"
+		"ci:test": "pnpm test",
+		"prepublish": "pnpm build"
 	},
 	"devDependencies": {
 		"@types/jest": "^27.4.0",
@@ -67,5 +73,5 @@
 		"ajv": "^8.8.2",
 		"ajv-formats": "^2.1.1"
 	},
-	"version": "3.0.2"
+	"version": "3.0.3"
 }
