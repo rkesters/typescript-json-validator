@@ -5,8 +5,9 @@
 	"packageManager": "pnpm@7.1.7",
 	"engineStrict": true,
 	"engines": {
-		"npm": "don't use npm, use pnpm",
-		"pnpm": ">=7.1.7"
+		"npm": ">=8.x.x",
+		"pnpm": ">=7.1.7",
+    "node": ">=16.x.x <17"
 	},
 	"bin": {
 		"typescript-json-validator": "./lib/cli.js"
@@ -36,7 +37,6 @@
 		"prepublish": "pnpm build"
 	},
 	"devDependencies": {
-		"@types/debug": "4.1.7",
 		"@types/jest": "^27.4.0",
 		"@types/koa": "^2.0.48",
 		"@types/koa-router": "^7.0.39",
@@ -44,7 +44,6 @@
 		"@types/rimraf": "3.0.2",
 		"ajv": "^8.8.2",
 		"ajv-formats": "^2.1.1",
-		"debug": "4.3.4",
 		"husky": "7.0.4",
 		"jest": "27.4.7",
 		"jest-summary-reporter": "^0.0.2",
