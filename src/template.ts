@@ -39,7 +39,9 @@ function ensurePosix(relativePath: string): string {
   return posixPath
 }
 
-function getRelativeName(source: string, target: string): string {
+function getRelativeName(src: string, tgt: string): string {
+  const source = resolve(src);
+  const target = resolve(tgt);
 	const baseFilename = basename(source, /\.ts$/.test(source) ? '.ts' : '.tsx');
 	const relativePath = relative(dirname(resolve(target)), dirname(resolve(source)));
 	const relativeName = isEmpty(relativePath) ? `./${baseFilename}` : `${relativePath}/${baseFilename}`;
