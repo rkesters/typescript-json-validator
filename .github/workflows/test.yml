@@ -3,6 +3,11 @@ on:
     branches:
       - "v[0-9]+\\.[0-9]+.[0-9]+*"
       - "v[0-9]+/*"
+  pull_request:
+    branches:
+      - "v[0-9]+\\.[0-9]+.[0-9]+*"
+      - "releases/**"
+      - "master"
 
 jobs:
   cache-and-install:
