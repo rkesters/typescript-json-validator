@@ -43,7 +43,7 @@ function getRelativeName(src: string, tgt: string): string {
 	const baseFilename = basename(source, /\.ts$/.test(source) ? '.ts' : '.tsx');
 	const relativePath = relative(dirname(resolve(target)), dirname(resolve(source)));
 	const relativeName = isEmpty(relativePath) ? `./${baseFilename}` : `${relativePath}/${baseFilename}`;
-	return posixPath;
+	return ensurePosix(relativeName);
 }
 
 export const importNamedTypes = (
